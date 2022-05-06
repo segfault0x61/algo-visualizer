@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AlgorithmVisualizerComponent } from './algorithm-visualizer/algorithm-visualizer.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { AlgorithmVisualizerComponent } from './algorithm-visualizer/algorithm-v
     AppRoutingModule,
     MatToolbarModule,
     MatIconModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
