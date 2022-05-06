@@ -18,12 +18,35 @@ export class AlgorithmVisualizerComponent implements OnInit {
 
   resetArray() {
     this.numbers = [];
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 10; i++) {
       this.numbers.push(this.randomInteger(5, 700));
+    }
+    console.log(`unsorted: ${this.numbers}`);
+  }
+
+  async bubbleSort() {
+    for (let i = 0; i < this.numbers.length; i++) {
+      for (let j = i; j < this.numbers.length; j++) {
+        await this.sleep(0.1);
+
+        if (this.numbers[i] < this.numbers[j]) {
+          let temp = this.numbers[j];
+          this.numbers[j] = this.numbers[i];
+          this.numbers[i] = temp;
+        }
+      }
     }
   }
 
   randomInteger(min: number, max: number) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  sleep(duration: number) {
+    return new Promise<void>((resolve) => {
+      setTimeout(() => {
+        resolve();
+      }, duration * 1000);
+    });
   }
 }
