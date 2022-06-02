@@ -1,77 +1,56 @@
-import { Injectable } from '@angular/core';
+import { merge } from 'rxjs';
+import { ArraysService } from '../shared/arrays.service';
 
-@Injectable()
 export class MergeSort {
-  private temp: number[] = [];
+  animations = [];
 
-  constructor() {}
+  constructor(private readonly arraysService: ArraysService) {}
 
-  public sort(array: number[]): void {
-    if (array !== undefined) {
-      this.mergeSort(array, this.temp, 0, array.length - 1);
+  mergeSort(a: number[], lo: number, hi: number) {
+    if (hi <= lo) {
+      return;
     }
+
+    let mid = Math.floor(lo + (hi - lo) / 2);
+    this.mergeSort(a, lo, mid);
+    this.mergeSort(a, mid + 1, hi);
+    this.merge(a, lo, mid, hi);
   }
 
-  /**
-   * Recursively sorts and calls merge.
-   *
-   * @param array The array to be sorted.
-   * @param temp The temporary array.
-   * @param left The left index of the array.
-   * @param right The right index of the array.
-   */
-  public mergeSort(
-    array: number[],
-    temp: number[],
-    left: number,
-    right: number
-  ): void {
-    if (left < right) {
-      let center: number = Math.floor((left + right) / 2);
-      this.mergeSort(array, temp, left, center);
-      this.mergeSort(array, temp, center + 1, right);
-      this.merge(array, temp, left, center + 1, right);
-    }
-  }
+  merge(a: number[], lo: any, mid: number, hi: number) {
+    let aux = [...a];
 
-  /**
-   * This method contains the logic to implement the merge step.
-   *
-   * @param array The array to be sorted.
-   * @param temp The temporary array.
-   * @param left The left index of the array.
-   * @param right The right index of the array.
-   * @param rightEnd The right most index of the array.
-   */
-  public merge(
-    array: number[],
-    temp: number[],
-    left: number,
-    right: number,
-    rightEnd: number
-  ) {
-    let leftEnd: number = right - 1;
-    let k: number = left;
-    let num: number = rightEnd - left + 1;
-
-    while (left <= leftEnd && right <= rightEnd) {
-      if (array[left] <= array[right]) {
-        temp[k++] = array[left++];
+    let i = lo;
+    let j = mid + 1;
+    for (let k = lo; k <= hi; k++) {
+      // Case when one subarray has been exhausted. Recursivly sort each array, store the animations
+      if (i > mid) {
+        // Record the index of the main array and the replaced value.
+        this.animations.push([k, aux[j]] as never);
+        a[k] = aux[j++];
+      } else if (j > hi) {
+        this.animations.push([k, aux[i]] as never);
+        a[k] = aux[i++];
+      } else if (aux[i] > aux[j]) {
+        // Smaller element replacing element in the main array
+        this.animations.push([k, aux[j]] as never);
+        a[k] = aux[j++];
       } else {
-        temp[k++] = array[right++];
+        this.animations.push([k, aux[i]] as never);
+        a[k] = aux[i++];
       }
     }
+  }
 
-    while (left <= leftEnd) {
-      temp[k++] = array[left++];
-    }
-
-    while (right <= rightEnd) {
-      temp[k++] = array[right++];
-    }
-
-    for (let i: number = 0; i < temp.length; i++, rightEnd--) {
-      array[rightEnd] = temp[rightEnd];
-    }
+  animateMergeSort() {
+    let animation = setInterval(() => {
+      const action = this.animations.shift();
+      console.log('animations: ', this.animations);
+      if (action) {
+        this.arraysService.numbers[action[0]] = action[1]; // Index value = array value
+      } else {
+        clearInterval(animation);
+      }
+    }, 30);
   }
 }

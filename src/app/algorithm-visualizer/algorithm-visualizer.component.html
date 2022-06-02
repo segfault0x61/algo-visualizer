@@ -5,15 +5,15 @@
   <button type="button" class="btn btn-light" (click)="bubbleSort()">
     Bubble Sort
   </button>
-  <!-- <button type="button" class="btn btn-light" (click)="mergeSort()">
+  <button type="button" class="btn btn-light" (click)="mergeSort()">
     Merge Sort
-  </button> -->
+  </button>
 </mat-toolbar>
 
 <div class="container-fluid">
   <div class="row">
     <div class="array-container col-12">
-      <p class="array-body" *ngFor="let num of numbers">
+      <p class="array-body" *ngFor="let num of arraysService.numbers">
         <span
           class="array-element"
           [ngStyle]="{
