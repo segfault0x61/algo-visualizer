@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { BubbleSort } from './algorithms/bubble-sort';
 import { MergeSort } from './algorithms/merge-sort';
+// import { BubbleSort } from './algorithms/bubble-sort';
+import { BubbleSort } from './algorithms/bubble-sort';
 
 @Component({
   selector: 'app-algorithm-visualizer',
@@ -10,39 +11,32 @@ import { MergeSort } from './algorithms/merge-sort';
 export class AlgorithmVisualizerComponent implements OnInit {
   numbers: number[];
   unsortedNumbers: number[];
-  outerValue: number;
-  innerValue: number;
-  swapped: boolean;
+  animations!: any[];
+  slowAnimations = [];
+  binDimensions = [];
 
   constructor() {
     this.numbers = [];
     this.unsortedNumbers = [];
-    this.outerValue = 0;
-    this.innerValue = 0;
-    this.swapped = false;
   }
 
   ngOnInit(): void {
     this.resetArray();
   }
 
-  setBarColors(value: number) {
-    if (this.isArraySorted()) {
-      return 'purple';
+  resetArray() {
+    this.numbers = [];
+    this.unsortedNumbers = [];
+    for (let i = 0; i < 30; i++) {
+      let randInt = this.randomInteger(15, 400);
+      this.numbers.push(randInt);
+      this.unsortedNumbers.push(randInt);
     }
-    if (this.swapped) {
-      if (value == this.outerValue || value == this.innerValue) {
-        return 'pink';
-      }
-    }
-    if (value == this.outerValue) {
-      return 'red';
-    }
-    if (value == this.innerValue) {
-      return 'green';
-    }
+  }
 
-    return 'unknown';
+  randomInteger(min: number, max: number) {
+    //stackoverflow.com/questions/4959975/generate-random-number-between-two-numbers-in-javascript
+    https: return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
   isArraySorted() {
@@ -53,29 +47,46 @@ export class AlgorithmVisualizerComponent implements OnInit {
     return true;
   }
 
-  resetArray() {
-    this.numbers = [];
-    this.unsortedNumbers = [];
-    for (let i = 0; i < 3; i++) {
-      let randInt = this.randomInteger(15, 200);
-      this.numbers.push(randInt);
-      this.unsortedNumbers.push(randInt);
-    }
+  setBarPurple() {
+    return 'purple';
   }
 
-  randomInteger(min: number, max: number) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+  setBarColors() {
+    if (this.isArraySorted()) {
+      return 'purple';
+    }
+    return 'rgb(9, 168, 168)';
   }
 
   bubbleSort() {
-    let bubbleSort: BubbleSort = new BubbleSort();
-    bubbleSort.bubbleSort(this.numbers);
-    console.log('sorted: ', this.numbers);
+    let bubble = new BubbleSort();
+    let inputCopy = [...this.numbers];
+    this.animations = bubble.bubbleSort(inputCopy);
+    console.log('animation array: ', this.animations);
+    console.log(this.animations); // contains all index's elements we swap
+    this.bubbleSortAnimation();
   }
 
-  mergeSort() {
-    let mergeSort: MergeSort = new MergeSort();
-    mergeSort.sort(this.numbers);
-    console.log('sorted: ', this.numbers);
+  bubbleSortAnimation() {
+    if (this.animations) {
+      // have animations
+      const timer = setInterval(() => {
+        let action = this.animations.shift();
+        if (action) {
+          let temp = this.numbers[action[0]];
+          this.numbers[action[0]] = this.numbers[action[1]];
+          this.numbers[action[1]] = temp;
+        } else {
+          clearInterval(timer);
+          console.log('sorted numbers: ', this.numbers);
+        }
+      }, 10);
+    }
   }
+
+  // mergeSort() {
+  //   let sort: MergeSort = new MergeSort();
+  //   sort.sort(this.numbers);
+  //   console.log('sorted: ', this.numbers);
+  // }
 }

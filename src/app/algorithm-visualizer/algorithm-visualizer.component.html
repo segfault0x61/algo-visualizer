@@ -5,9 +5,9 @@
   <button type="button" class="btn btn-light" (click)="bubbleSort()">
     Bubble Sort
   </button>
-  <button type="button" class="btn btn-light" (click)="mergeSort()">
+  <!-- <button type="button" class="btn btn-light" (click)="mergeSort()">
     Merge Sort
-  </button>
+  </button> -->
 </mat-toolbar>
 
 <div class="container-fluid">
@@ -18,7 +18,7 @@
           class="array-element"
           [ngStyle]="{
             'height.px': num,
-            'background-color': setBarColors(num)
+            'background-color': setBarColors()
           }"
         ></span>
       </p>
