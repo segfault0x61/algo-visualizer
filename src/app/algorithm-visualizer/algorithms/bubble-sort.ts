@@ -1,42 +1,49 @@
-import { Injectable, Output } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { ArraysService } from '../shared/arrays.service';
 
 @Injectable()
 export class BubbleSort {
-  @Output() outerValue!: number;
-  innerValue!: number;
-  swapped!: boolean;
+  animations = [];
 
-  constructor() {}
+  constructor(private readonly arraysService: ArraysService) {}
 
-  async bubbleSort(array: number[]) {
-    for (let i = 0; i < array.length; i++) {
-      this.outerValue = array[i];
-      await this.sleep(1);
+  bubbleSort(array: number[]) {
+    for (let i = array.length - 1; i > 0; i--) {
+      this.bubbleMain(array, 0, i);
+    }
+    return this.animations;
+  }
 
-      for (let j = i; j < array.length; j++) {
-        this.innerValue = array[j];
-        await this.sleep(1);
-
-        if (array[i] > array[j]) {
-          this.swapped = true;
-          await this.sleep(1);
-
-          let temp = array[j];
-          array[j] = array[i];
-          array[i] = temp;
-
-          await this.sleep(1);
-          this.swapped = false;
-        }
+  bubbleMain(array: number[], lo: number, hi: number) {
+    for (let i = lo; i < hi; i++) {
+      if (array[i] > array[i + 1]) {
+        let anim = [i, i + 1];
+        this.animations.push(anim as never);
+        this.swap(array, i, i + 1);
       }
     }
   }
 
-  sleep(duration: number) {
-    return new Promise<void>((resolve) => {
-      setTimeout(() => {
-        resolve();
-      }, duration * 1000);
-    });
+  bubbleSortAnimation() {
+    if (this.animations) {
+      // have animations
+      const timer = setInterval(() => {
+        let action = this.animations.shift();
+        if (action) {
+          let temp = this.arraysService.numbers[action[0]];
+          this.arraysService.numbers[action[0]] =
+            this.arraysService.numbers[action[1]];
+          this.arraysService.numbers[action[1]] = temp;
+        } else {
+          clearInterval(timer);
+        }
+      }, 30);
+    }
+  }
+
+  swap(arr: number[], i: number, j: number) {
+    let temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
   }
 }

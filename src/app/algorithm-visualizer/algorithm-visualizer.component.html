@@ -13,12 +13,12 @@
 <div class="container-fluid">
   <div class="row">
     <div class="array-container col-12">
-      <p class="array-body" *ngFor="let num of numbers">
+      <p class="array-body" *ngFor="let num of arraysService.numbers">
         <span
           class="array-element"
           [ngStyle]="{
             'height.px': num,
-            'background-color': setBarColors(num)
+            'background-color': setBarColors()
           }"
         ></span>
       </p>
