@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ArraysService } from '../shared/arrays.service';
+import { ArrayBars } from '../../models/ArrayBars';
+import { ArraysService } from '../../shared/arrays.service';
 
 @Injectable()
 export class BubbleSort {
@@ -7,16 +8,16 @@ export class BubbleSort {
 
   constructor(private readonly arraysService: ArraysService) {}
 
-  bubbleSort(array: number[]) {
+  bubbleSort(array: ArrayBars[]) {
     for (let i = array.length - 1; i > 0; i--) {
       this.bubbleMain(array, 0, i);
     }
     return this.animations;
   }
 
-  bubbleMain(array: number[], lo: number, hi: number) {
+  bubbleMain(array: ArrayBars[], lo: number, hi: number) {
     for (let i = lo; i < hi; i++) {
-      if (array[i] > array[i + 1]) {
+      if (array[i].value > array[i + 1].value) {
         let anim = [i, i + 1];
         this.animations.push(anim as never);
         this.swap(array, i, i + 1);
@@ -37,11 +38,11 @@ export class BubbleSort {
         } else {
           clearInterval(timer);
         }
-      }, 30);
+      }, this.arraysService.ANIMATION_SPEED);
     }
   }
 
-  swap(arr: number[], i: number, j: number) {
+  swap(arr: ArrayBars[], i: number, j: number) {
     let temp = arr[i];
     arr[i] = arr[j];
     arr[j] = temp;

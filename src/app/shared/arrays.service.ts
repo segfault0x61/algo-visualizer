@@ -1,18 +1,22 @@
 import { Injectable } from '@angular/core';
+import { ArrayBars } from '../models/ArrayBars';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ArraysService {
-  numbers: number[] = [];
+  ARRAY_LENGTH = 25;
+  ANIMATION_SPEED = 1;
+  completedAnimation = [];
+  numbers: ArrayBars[] = [];
 
   constructor() {}
 
   resetArray() {
     this.numbers = [];
-    for (let i = 0; i < 20; i++) {
-      let randInt = this.randomInteger(15, 400);
-      this.numbers.push(randInt);
+    for (let i = 0; i < this.ARRAY_LENGTH; i++) {
+      let randInt = this.randomInteger(15, 800);
+      this.numbers.push({ value: randInt, color: '' });
     }
   }
 
@@ -21,12 +25,18 @@ export class ArraysService {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
-  isArraySorted(array: number[]) {
+  isArraySorted(array: ArrayBars[]) {
     let numCopy = [...array];
-    numCopy.sort((a, b) => a - b);
+    numCopy.sort((a, b) => a.value - b.value);
+
+    console.log('sorted num copy: ', numCopy);
+    console.log('unsorted array: ', array);
+
     for (let i = 0; i < numCopy.length; i++) {
-      if (numCopy[i] !== array[i]) return false;
+      if (numCopy[i].value !== array[i].value) return false;
     }
+
+    console.log('sorted!');
     return true;
   }
 

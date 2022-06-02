@@ -17,10 +17,11 @@
         <span
           class="array-element"
           [ngStyle]="{
-            'height.px': num,
-            'background-color': setBarColors()
+            'height.px': num.value,
+            'background-color': setBarColors(num.value)
           }"
-        ></span>
+          >{{ num.value }}</span
+        >
       </p>
     </div>
   </div>
