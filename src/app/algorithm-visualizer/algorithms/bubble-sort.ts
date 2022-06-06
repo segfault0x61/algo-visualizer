@@ -1,47 +1,40 @@
 import { Injectable } from '@angular/core';
-import { ArraysService } from '../shared/arrays.service';
+import { ArrayBars } from '../../models/ArrayBars';
+import { ArraysService } from '../../shared/arrays.service';
 
 @Injectable()
 export class BubbleSort {
   animations = [];
 
-  constructor(private readonly arraysService: ArraysService) {}
+  constructor(private readonly arrService: ArraysService) {}
 
-  bubbleSort(array: number[]) {
-    for (let i = array.length - 1; i > 0; i--) {
-      this.bubbleMain(array, 0, i);
-    }
-    return this.animations;
-  }
-
-  bubbleMain(array: number[], lo: number, hi: number) {
-    for (let i = lo; i < hi; i++) {
-      if (array[i] > array[i + 1]) {
-        let anim = [i, i + 1];
-        this.animations.push(anim as never);
-        this.swap(array, i, i + 1);
+  bubbleSort(array: ArrayBars[]) {
+    for (let i = 0; i < array.length - 1; i++) {
+      for (let j = 0; j < array.length - i - 1; j++) {
+        if (array[j].value > array[j + 1].value) {
+          this.animations.push([j, j + 1] as never);
+          this.swap(array, j, j + 1);
+        }
       }
     }
   }
 
   bubbleSortAnimation() {
-    if (this.animations) {
-      // have animations
-      const timer = setInterval(() => {
-        let action = this.animations.shift();
-        if (action) {
-          let temp = this.arraysService.numbers[action[0]];
-          this.arraysService.numbers[action[0]] =
-            this.arraysService.numbers[action[1]];
-          this.arraysService.numbers[action[1]] = temp;
-        } else {
-          clearInterval(timer);
-        }
-      }, 30);
-    }
+    const timer = setInterval(() => {
+      let action = this.animations.shift();
+      if (action) {
+        let temp = this.arrService.numbers[action[0]];
+        this.arrService.numbers[action[0]] = this.arrService.numbers[action[1]];
+        this.arrService.numbers[action[1]] = temp;
+      } else {
+        clearInterval(timer);
+        this.arrService.isArraySorted(this.arrService.numbers);
+        this.arrService.animateSortedArray();
+      }
+    }, this.arrService.ANIMATION_SPEED);
   }
 
-  swap(arr: number[], i: number, j: number) {
+  swap(arr: ArrayBars[], i: number, j: number) {
     let temp = arr[i];
     arr[i] = arr[j];
     arr[j] = temp;

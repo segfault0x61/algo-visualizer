@@ -13,14 +13,15 @@
 <div class="container-fluid">
   <div class="row">
     <div class="array-container col-12">
-      <p class="array-body" *ngFor="let num of arraysService.numbers">
+      <p class="array-body" *ngFor="let num of arrService.numbers">
         <span
           class="array-element"
           [ngStyle]="{
-            'height.px': num,
-            'background-color': setBarColors()
+            'height.px': num.value,
+            'background-color': setBarColors(num.color)
           }"
-        ></span>
+          >{{ num.value }}</span
+        >
       </p>
     </div>
   </div>

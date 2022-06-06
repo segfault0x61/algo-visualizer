@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MergeSort } from './algorithms/merge-sort';
 import { BubbleSort } from './algorithms/bubble-sort';
-import { ArraysService } from './shared/arrays.service';
+import { ArraysService } from '../shared/arrays.service';
 
 @Component({
   selector: 'app-algorithm-visualizer',
@@ -9,42 +9,32 @@ import { ArraysService } from './shared/arrays.service';
   styleUrls: ['./algorithm-visualizer.component.scss'],
 })
 export class AlgorithmVisualizerComponent implements OnInit {
-  constructor(public readonly arraysService: ArraysService) {}
+  constructor(public arrService: ArraysService) {}
 
   ngOnInit(): void {
-    this.arraysService.resetArray();
+    this.arrService.resetArray();
   }
 
   resetArray() {
-    this.arraysService.resetArray();
+    this.arrService.resetArray();
   }
 
-  setBarColors() {
-    if (this.arraysService.getIsArraySorted()) {
-      return 'purple';
-    }
-    return 'rgb(9, 168, 168)';
+  setBarColors(color: string) {
+    return color;
   }
 
   bubbleSort() {
-    const bs = new BubbleSort(this.arraysService);
-    const inputCopy = [...this.arraysService.numbers];
+    const bs = new BubbleSort(this.arrService);
+    const inputCopy = [...this.arrService.numbers];
     bs.bubbleSort(inputCopy);
     bs.bubbleSortAnimation();
   }
 
   mergeSort() {
-    const ms: MergeSort = new MergeSort(this.arraysService);
-    let numbersCopy = [...this.arraysService.numbers];
-    //Auxiliary array used in merge sort.
-    let auxiliaryArray = [];
+    const ms: MergeSort = new MergeSort(this.arrService);
+    let numbersCopy = [...this.arrService.numbers];
 
     ms.mergeSort(numbersCopy, 0, numbersCopy.length - 1);
-
-    console.log(numbersCopy);
-
-    console.log('start animation..');
-    ms.animateMergeSort();
-    // this.arraysService.numbers = [...inputCopy];
+    ms.mergeSortAnimation();
   }
 }
