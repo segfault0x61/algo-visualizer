@@ -6,8 +6,8 @@ import { ArrayBars } from '../models/ArrayBars';
 })
 export class ArraysService {
   public arrayLength: number = 30;
+  public animationSpeed: number = 10;
 
-  ANIMATION_SPEED: number = 10;
   completedAnimation: any[] = [];
   numbers: ArrayBars[] = [];
 
@@ -17,7 +17,7 @@ export class ArraysService {
     this.numbers = [];
     for (let i = 0; i < this.arrayLength; i++) {
       let randInt = this.randomInteger(20, 100);
-      this.numbers.push({ value: randInt, color: 'rgb(9, 168, 168)' });
+      this.numbers.push({ value: randInt, color: '#09A8A8' });
     }
   }
 
@@ -45,7 +45,7 @@ export class ArraysService {
       } else {
         clearInterval(timer);
       }
-    }, this.ANIMATION_SPEED);
+    }, this.animationSpeed);
   }
 }
 
