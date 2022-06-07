@@ -7,13 +7,17 @@
 }
 
 .array-element {
-  width: 36px;
+  width: 30px;
   margin: 2px;
   // background-color: rgb(0, 168, 168);
   display: inline-block;
 }
 
 button {
-  margin: 4px;
-  padding: 4px;
+  margin: 14px;
+  padding: 4px 8px 4px 8px;
+}
+
+.mat-form-field.mat-select {
+  background: #fff;
 }
