@@ -44,7 +44,7 @@ export class MergeSort {
   mergeSortAnimation(): void {
     let animations = setInterval(() => {
       const action: animationValues = this.animations.shift() as never;
-      console.log('animations: ', this.animations);
+
       if (action) this.arrService.numbers[action.index].value = action.value;
       else {
         clearInterval(animations);
