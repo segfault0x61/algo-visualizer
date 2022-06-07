@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MergeSort } from './algorithms/merge-sort';
 import { BubbleSort } from './algorithms/bubble-sort';
+import { QuickSort } from './algorithms/quick-sort';
 import { ArraysService } from '../shared/arrays.service';
 import { BsDropdownConfig } from 'ngx-bootstrap/dropdown';
+
+import { algorithmEnums } from '../shared/algorithm-enum';
 
 @Component({
   selector: 'app-algorithm-visualizer',
@@ -16,7 +19,8 @@ import { BsDropdownConfig } from 'ngx-bootstrap/dropdown';
   ],
 })
 export class AlgorithmVisualizerComponent implements OnInit {
-  selectedAlgorithm: string = 'Algorithms';
+  algorithmEnum = algorithmEnums;
+  selectedAlgorithm: string = algorithmEnums.QUICK;
 
   constructor(public arrService: ArraysService) {}
 
@@ -32,24 +36,31 @@ export class AlgorithmVisualizerComponent implements OnInit {
     return color;
   }
 
-  pitch(event: any) {
+  pitchSize(event: any) {
     console.log(event.value);
     this.arrService.arrayLength = event.value;
     this.arrService.resetArray();
   }
 
+  pitchSpeed(event: any) {
+    console.log(event.value);
+    this.arrService.animationSpeed = event.value;
+  }
+
   startSorting() {
-    if (this.selectedAlgorithm == 'Bubble Sort') {
+    if (this.selectedAlgorithm.includes(this.algorithmEnum.BUBBLE)) {
       this.bubbleSort();
-    } else {
+    } else if (this.selectedAlgorithm.includes(this.algorithmEnum.MERGE)) {
       this.mergeSort();
+    } else if (this.selectedAlgorithm.includes(this.algorithmEnum.QUICK)) {
+      this.quickSort();
     }
   }
 
   bubbleSort() {
     const bs = new BubbleSort(this.arrService);
-    let inputCopy = [...this.arrService.numbers];
-    bs.bubbleSort(inputCopy);
+    let numbersCopy = [...this.arrService.numbers];
+    bs.bubbleSort(numbersCopy);
     bs.bubbleSortAnimation();
   }
 
@@ -59,5 +70,12 @@ export class AlgorithmVisualizerComponent implements OnInit {
 
     ms.mergeSort(numbersCopy, 0, numbersCopy.length - 1);
     ms.mergeSortAnimation();
+  }
+
+  quickSort() {
+    const qs: QuickSort = new QuickSort(this.arrService);
+    let numbersCopy = [...this.arrService.numbers];
+    qs.quickSort(numbersCopy);
+    qs.quickSortAnimation();
   }
 }
