@@ -35,6 +35,15 @@
   <button type="button" class="btn btn-danger" (click)="startSorting()">
     Sort
   </button>
+
+  <mat-slider
+    thumbLabel
+    tickInterval="auto"
+    min="4"
+    max="100"
+    (input)="pitch($event)"
+    value="{{ arrService.numbers.length }}"
+  ></mat-slider>
 </mat-toolbar>
 
 <div class="container-fluid">

@@ -32,6 +32,12 @@ export class AlgorithmVisualizerComponent implements OnInit {
     return color;
   }
 
+  pitch(event: any) {
+    console.log(event.value);
+    this.arrService.arrayLength = event.value;
+    this.arrService.resetArray();
+  }
+
   startSorting() {
     if (this.selectedAlgorithm == 'Bubble Sort') {
       this.bubbleSort();
