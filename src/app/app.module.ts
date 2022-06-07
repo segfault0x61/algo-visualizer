@@ -8,22 +8,22 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AlgorithmVisualizerComponent } from './algorithm-visualizer/algorithm-visualizer.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+import { MatSelectModule } from '@angular/material/select';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    AlgorithmVisualizerComponent
-  ],
+  declarations: [AppComponent, AlgorithmVisualizerComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MatToolbarModule,
     MatIconModule,
+    MatSelectModule,
     BrowserAnimationsModule,
-    NgbModule
+    BsDropdownModule.forRoot(),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
