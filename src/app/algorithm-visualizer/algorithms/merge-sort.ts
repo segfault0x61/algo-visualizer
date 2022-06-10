@@ -11,7 +11,7 @@ export class MergeSort {
       return;
     }
 
-    let mid = Math.floor(left + (right - left) / 2);
+    let mid = Math.floor((left + right) / 2);
     this.mergeSort(array, left, mid); // Sort left side of the array, 0 to mid
     this.mergeSort(array, mid + 1, right); // mid to end
     this.merge(array, left, mid, right);
@@ -43,13 +43,12 @@ export class MergeSort {
 
   mergeSortAnimation(): void {
     let animations = setInterval(() => {
-      const action: animationValues = this.animations.shift() as never;
-
+      const action: animationValues = this.animations.shift()!;
       if (action) this.arrService.numbers[action.index].value = action.value;
       else {
         clearInterval(animations);
-        this.arrService.isArraySorted(this.arrService.numbers);
-        this.arrService.animateSortedArray();
+        if (this.arrService.isArraySorted(this.arrService.numbers))
+          this.arrService.animateSortedArray();
       }
     }, this.arrService.animationSpeed);
   }

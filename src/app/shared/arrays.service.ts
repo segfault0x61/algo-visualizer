@@ -6,26 +6,33 @@ import { ArrayBars } from '../models/ArrayBars';
 })
 export class ArraysService {
   public arrayLength: number = 30;
-  public animationSpeed: number = 10;
+  public animationSpeed: number = 1;
 
   completedAnimation: any[] = [];
   numbers: ArrayBars[] = [];
 
   constructor() {}
 
-  resetArray() {
+  resetArray(): void {
     this.numbers = [];
     for (let i = 0; i < this.arrayLength; i++) {
-      let randInt = this.randomInteger(20, 100);
+      const randInt = this.randomInteger(20, 100);
       this.numbers.push({ value: randInt, color: '#09A8A8' });
     }
   }
 
-  randomInteger(min: number, max: number) {
+  randomInteger(min: number, max: number): number {
     //https://stackoverflow.com/questions/4959975/generate-random-number-between-two-numbers-in-javascript
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
-  isArraySorted(array: ArrayBars[]) {
+
+  swap(arr: ArrayBars[], left: number, right: number): void {
+    const temp = arr[left];
+    arr[left] = arr[right];
+    arr[right] = temp;
+  }
+
+  isArraySorted(array: ArrayBars[]): boolean {
     for (let i = 0; i < array.length - 1; i++) {
       if (array[i].value > array[i + 1].value) {
         return false;
@@ -37,7 +44,7 @@ export class ArraysService {
     return true;
   }
 
-  animateSortedArray() {
+  animateSortedArray(): void {
     const timer = setInterval(() => {
       const action: animationValues = this.completedAnimation.shift();
       if (action) {
