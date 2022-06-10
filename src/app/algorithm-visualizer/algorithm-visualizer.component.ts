@@ -2,10 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { MergeSort } from './algorithms/merge-sort';
 import { BubbleSort } from './algorithms/bubble-sort';
 import { QuickSort } from './algorithms/quick-sort';
+import { InsertionSort } from './algorithms/insertion-sort';
+
 import { ArraysService } from '../shared/arrays.service';
 import { BsDropdownConfig } from 'ngx-bootstrap/dropdown';
 
 import { algorithmEnums } from '../shared/algorithm-enum';
+import { ArrayBars } from '../models/ArrayBars';
 
 @Component({
   selector: 'app-algorithm-visualizer',
@@ -20,7 +23,7 @@ import { algorithmEnums } from '../shared/algorithm-enum';
 })
 export class AlgorithmVisualizerComponent implements OnInit {
   algorithmEnum = algorithmEnums;
-  selectedAlgorithm: string = algorithmEnums.QUICK;
+  selectedAlgorithm: algorithmEnums = algorithmEnums.INSERTION;
 
   constructor(public arrService: ArraysService) {}
 
@@ -28,54 +31,66 @@ export class AlgorithmVisualizerComponent implements OnInit {
     this.arrService.resetArray();
   }
 
-  resetArray() {
+  resetArray(): void {
     this.arrService.resetArray();
   }
 
-  setBarColors(color: string) {
+  setBarColors(color: string): string {
     return color;
   }
 
-  pitchSize(event: any) {
+  pitchSize(event: any): void {
     console.log(event.value);
     this.arrService.arrayLength = event.value;
     this.arrService.resetArray();
   }
 
-  pitchSpeed(event: any) {
+  pitchSpeed(event: any): void {
     console.log(event.value);
     this.arrService.animationSpeed = event.value;
   }
 
-  startSorting() {
-    if (this.selectedAlgorithm.includes(this.algorithmEnum.BUBBLE)) {
+  startSorting(): void {
+    if (this.selectedAlgorithm === this.algorithmEnum.BUBBLE) {
       this.bubbleSort();
-    } else if (this.selectedAlgorithm.includes(this.algorithmEnum.MERGE)) {
+    }
+    if (this.selectedAlgorithm === this.algorithmEnum.INSERTION) {
+      this.insertionSort();
+    }
+    if (this.selectedAlgorithm === this.algorithmEnum.MERGE) {
       this.mergeSort();
-    } else if (this.selectedAlgorithm.includes(this.algorithmEnum.QUICK)) {
+    }
+    if (this.selectedAlgorithm === this.algorithmEnum.QUICK) {
       this.quickSort();
     }
   }
 
-  bubbleSort() {
+  bubbleSort(): void {
     const bs = new BubbleSort(this.arrService);
-    let numbersCopy = [...this.arrService.numbers];
+    const numbersCopy = [...this.arrService.numbers];
     bs.bubbleSort(numbersCopy);
     bs.bubbleSortAnimation();
   }
 
-  mergeSort() {
+  mergeSort(): void {
     const ms: MergeSort = new MergeSort(this.arrService);
-    let numbersCopy = [...this.arrService.numbers];
+    const numbersCopy = [...this.arrService.numbers];
 
     ms.mergeSort(numbersCopy, 0, numbersCopy.length - 1);
     ms.mergeSortAnimation();
   }
 
-  quickSort() {
+  quickSort(): void {
     const qs: QuickSort = new QuickSort(this.arrService);
-    let numbersCopy = [...this.arrService.numbers];
+    const numbersCopy = [...this.arrService.numbers];
     qs.quickSort(numbersCopy);
     qs.quickSortAnimation();
+  }
+
+  insertionSort(): void {
+    const is = new InsertionSort(this.arrService);
+    const numbersCopy = [...this.arrService.numbers];
+    is.insertionSort(numbersCopy);
+    is.insertionSortAnimation();
   }
 }

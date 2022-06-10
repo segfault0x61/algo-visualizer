@@ -1,42 +1,41 @@
-import { Injectable } from '@angular/core';
-import { ArrayBars } from '../../models/ArrayBars';
-import { ArraysService } from '../../shared/arrays.service';
+import { ArraysService } from 'src/app/shared/arrays.service';
+import { ArrayBars } from 'src/app/models/ArrayBars';
 
-@Injectable()
 export class BubbleSort {
-  animations = [];
+  animations: animationValues[] = [];
 
   constructor(private readonly arrService: ArraysService) {}
 
-  bubbleSort(array: ArrayBars[]) {
+  bubbleSort(array: ArrayBars[]): void {
     for (let i = 0; i < array.length - 1; i++) {
       for (let j = 0; j < array.length - i - 1; j++) {
         if (array[j].value > array[j + 1].value) {
-          this.animations.push([j, j + 1] as never);
-          this.swap(array, j, j + 1);
+          this.animations.push({ leftIndex: j, rightIndex: j + 1 });
+          this.arrService.swap(array, j, j + 1);
         }
       }
     }
   }
 
-  bubbleSortAnimation() {
+  bubbleSortAnimation(): void {
     const timer = setInterval(() => {
-      let action = this.animations.shift();
-      if (action) {
-        let temp = this.arrService.numbers[action[0]];
-        this.arrService.numbers[action[0]] = this.arrService.numbers[action[1]];
-        this.arrService.numbers[action[1]] = temp;
-      } else {
+      const action: animationValues = this.animations.shift()!;
+      if (action)
+        this.arrService.swap(
+          this.arrService.numbers,
+          action.leftIndex,
+          action.rightIndex
+        );
+      else {
         clearInterval(timer);
-        this.arrService.isArraySorted(this.arrService.numbers);
-        this.arrService.animateSortedArray();
+        if (this.arrService.isArraySorted(this.arrService.numbers))
+          this.arrService.animateSortedArray();
       }
     }, this.arrService.animationSpeed);
   }
+}
 
-  swap(arr: ArrayBars[], i: number, j: number) {
-    let temp = arr[i];
-    arr[i] = arr[j];
-    arr[j] = temp;
-  }
+interface animationValues {
+  leftIndex: number;
+  rightIndex: number;
 }
