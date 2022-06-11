@@ -1,5 +1,4 @@
 <mat-toolbar>
-  <!-- <span>Algorithm Visualizer</span> -->
   <button
     type="button"
     [disabled]="arrService.sorting"
@@ -27,30 +26,22 @@
       aria-labelledby="button-animated"
     >
       <li role="menuitem">
-        <a
-          class="dropdown-item"
-          (click)="selectedAlgorithm = algorithmEnum.BUBBLE"
+        <a class="dropdown-item" (click)="displayInfo(algorithmEnum.BUBBLE)"
           >Bubble Sort</a
         >
       </li>
       <li role="menuitem">
-        <a
-          class="dropdown-item"
-          (click)="selectedAlgorithm = algorithmEnum.INSERTION"
+        <a class="dropdown-item" (click)="displayInfo(algorithmEnum.INSERTION)"
           >Insertion Sort</a
         >
       </li>
       <li role="menuitem">
-        <a
-          class="dropdown-item"
-          (click)="selectedAlgorithm = algorithmEnum.MERGE"
+        <a class="dropdown-item" (click)="displayInfo(algorithmEnum.MERGE)"
           >Merge Sort</a
         >
       </li>
       <li role="menuitem">
-        <a
-          class="dropdown-item"
-          (click)="selectedAlgorithm = algorithmEnum.QUICK"
+        <a class="dropdown-item" (click)="displayInfo(algorithmEnum.QUICK)"
           >Quick Sort</a
         >
       </li>
@@ -90,7 +81,21 @@
 <div class="container-fluid">
   <div class="row">
     <div class="array-container col-12">
-      <div class="animation-bar col-sm-4">
+      <div class="animation-bar col-sm-6">
+        <div class="rectangle" [ngStyle]="{ 'background-color': 'red' }"></div>
+        {{ algorithmEnum.RED_BAR }}
+        <div
+          class="rectangle"
+          [ngStyle]="{ 'background-color': 'orange' }"
+          *ngIf="selectedAlgorithm == algorithmEnum.QUICK"
+        ></div>
+        {{ algorithmEnum.ORANGE_BAR }}
+        <div
+          class="rectangle"
+          [ngStyle]="{ 'background-color': 'green' }"
+        ></div>
+        {{ algorithmEnum.GREEN_BAR }}
+
         <div class="mb-2">
           <progressbar
             [max]="arrService.sortingAnimationsMax"
@@ -112,7 +117,7 @@
           class="array-element"
           [ngStyle]="{
             'height.px': num.value,
-            'background-color': setBarColors(num.color)
+            'background-color': num.color
           }"
         >
           .</span
