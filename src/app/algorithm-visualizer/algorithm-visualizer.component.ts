@@ -23,7 +23,7 @@ import { ArrayBars } from '../models/ArrayBars';
 })
 export class AlgorithmVisualizerComponent implements OnInit {
   algorithmEnum = algorithmEnums;
-  selectedAlgorithm: algorithmEnums = algorithmEnums.MERGE;
+  selectedAlgorithm: algorithmEnums = algorithmEnums.QUICK;
 
   constructor(public arrService: ArraysService) {}
 
@@ -35,10 +35,6 @@ export class AlgorithmVisualizerComponent implements OnInit {
     this.arrService.resetArray();
   }
 
-  setBarColors(color: string): string {
-    return color;
-  }
-
   pitchSize(event: any): void {
     this.arrService.arrayLength = event.value;
     this.arrService.sortingAnimationsMax = event.value;
@@ -48,6 +44,10 @@ export class AlgorithmVisualizerComponent implements OnInit {
 
   pitchSpeed(event: any): void {
     this.arrService.animationSpeed = event.value;
+  }
+
+  displayInfo(pickedAlgo: algorithmEnums) {
+    this.selectedAlgorithm = pickedAlgo;
   }
 
   startSorting(): void {
