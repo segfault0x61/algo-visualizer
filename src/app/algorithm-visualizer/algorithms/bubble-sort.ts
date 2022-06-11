@@ -27,15 +27,14 @@ export class BubbleSort {
       const action: animationValues = this.animations.shift()!;
       this.arrService.sortingAnimationsLeft = this.animations.length;
       if (action) {
-        console.log(action);
         this.arrService.numbers.map(
           (num) => (num.color = this.arrService.$primaryBars)
         );
 
-        if (action.index != null)
+        if (action.index != null) {
           this.arrService.numbers[action.index].color =
             this.arrService.$selectedIndex;
-        else {
+        } else {
           this.arrService.numbers[action.leftIndex!].color =
             this.arrService.$swappedIndex;
           this.arrService.numbers[action.rightIndex!].color =
