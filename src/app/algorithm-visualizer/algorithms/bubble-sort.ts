@@ -8,8 +8,13 @@ export class BubbleSort {
   bubbleSort(array: ArrayBars[]): void {
     for (let i = 0; i < array.length - 1; i++) {
       for (let j = 0; j < array.length - i - 1; j++) {
+        this.animations.push({ leftIndex: null, rightIndex: null, index: j });
         if (array[j].value > array[j + 1].value) {
-          this.animations.push({ leftIndex: j, rightIndex: j + 1 });
+          this.animations.push({
+            leftIndex: j,
+            rightIndex: j + 1,
+            index: null,
+          });
           this.arrService.swap(array, j, j + 1);
         }
       }
@@ -21,13 +26,27 @@ export class BubbleSort {
     const timer = setInterval(() => {
       const action: animationValues = this.animations.shift()!;
       this.arrService.sortingAnimationsLeft = this.animations.length;
-      if (action)
-        this.arrService.swap(
-          this.arrService.numbers,
-          action.leftIndex,
-          action.rightIndex
+      if (action) {
+        console.log(action);
+        this.arrService.numbers.map(
+          (num) => (num.color = this.arrService.$primaryBars)
         );
-      else {
+
+        if (action.index != null)
+          this.arrService.numbers[action.index].color =
+            this.arrService.$selectedIndex;
+        else {
+          this.arrService.numbers[action.leftIndex!].color =
+            this.arrService.$swappedIndex;
+          this.arrService.numbers[action.rightIndex!].color =
+            this.arrService.$swappedIndex;
+          this.arrService.swap(
+            this.arrService.numbers,
+            action.leftIndex!,
+            action.rightIndex!
+          );
+        }
+      } else {
         clearInterval(timer);
         if (this.arrService.isArraySorted(this.arrService.numbers)) {
           this.arrService.animateSortedArray();
@@ -39,6 +58,7 @@ export class BubbleSort {
 }
 
 interface animationValues {
-  leftIndex: number;
-  rightIndex: number;
+  leftIndex: number | null;
+  rightIndex: number | null;
+  index: number | null;
 }

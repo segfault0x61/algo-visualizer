@@ -6,12 +6,17 @@ import { ArrayBars } from '../models/ArrayBars';
 })
 export class ArraysService {
   public arrayLength: number = 30;
-  public animationSpeed: number = 1;
+  public animationSpeed: number = 1000;
 
   sortingAnimationsMax!: number;
   sortingAnimationsLeft!: number;
   sorting: boolean = false;
   isSorted: boolean = false;
+
+  $primaryBars: string = '#0F5257';
+  $selectedIndex: string = 'red';
+  $swappedIndex: string = 'green';
+  $finishedBars: string = '#9C92A3';
 
   numbers: ArrayBars[] = [];
 
@@ -22,8 +27,8 @@ export class ArraysService {
   resetArray(): void {
     this.numbers = [];
     for (let i = 0; i < this.arrayLength; i++) {
-      const randInt = this.randomInteger(20, 100);
-      this.numbers.push({ value: randInt, color: '#09A8A8' });
+      const randInt = this.randomInteger(20, 300);
+      this.numbers.push({ value: randInt, color: this.$primaryBars });
     }
     this.sortingAnimationsMax = this.numbers.length;
     this.sortingAnimationsLeft = this.numbers.length;
@@ -58,7 +63,7 @@ export class ArraysService {
     const timer = setInterval(() => {
       const action: animationValues = this.completedAnimation.shift()!;
       if (action) {
-        this.numbers[action.index].color = 'purple';
+        this.numbers[action.index].color = this.$finishedBars;
       } else {
         clearInterval(timer);
       }
