@@ -8,8 +8,14 @@ export class ArraysService {
   public arrayLength: number = 30;
   public animationSpeed: number = 1;
 
-  completedAnimation: any[] = [];
+  sortingAnimationsMax!: number;
+  sortingAnimationsLeft!: number;
+  sorting: boolean = false;
+  isSorted: boolean = false;
+
   numbers: ArrayBars[] = [];
+
+  completedAnimation: animationValues[] = []; // Iterating the array once last time, to show it is completed
 
   constructor() {}
 
@@ -19,6 +25,10 @@ export class ArraysService {
       const randInt = this.randomInteger(20, 100);
       this.numbers.push({ value: randInt, color: '#09A8A8' });
     }
+    this.sortingAnimationsMax = this.numbers.length;
+    this.sortingAnimationsLeft = this.numbers.length;
+    this.isSorted = false;
+    this.sorting = false;
   }
 
   randomInteger(min: number, max: number): number {
@@ -40,13 +50,13 @@ export class ArraysService {
       this.completedAnimation.push({ index: i });
     }
     this.completedAnimation.push({ index: array.length - 1 }); // Append last index
-
+    this.isSorted = true;
     return true;
   }
 
   animateSortedArray(): void {
     const timer = setInterval(() => {
-      const action: animationValues = this.completedAnimation.shift();
+      const action: animationValues = this.completedAnimation.shift()!;
       if (action) {
         this.numbers[action.index].color = 'purple';
       } else {

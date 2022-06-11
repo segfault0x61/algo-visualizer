@@ -1,6 +1,5 @@
 import { ArraysService } from 'src/app/shared/arrays.service';
 import { ArrayBars } from 'src/app/models/ArrayBars';
-
 export class BubbleSort {
   animations: animationValues[] = [];
 
@@ -18,8 +17,10 @@ export class BubbleSort {
   }
 
   bubbleSortAnimation(): void {
+    this.arrService.sortingAnimationsMax = this.animations.length;
     const timer = setInterval(() => {
       const action: animationValues = this.animations.shift()!;
+      this.arrService.sortingAnimationsLeft = this.animations.length;
       if (action)
         this.arrService.swap(
           this.arrService.numbers,
@@ -28,8 +29,10 @@ export class BubbleSort {
         );
       else {
         clearInterval(timer);
-        if (this.arrService.isArraySorted(this.arrService.numbers))
+        if (this.arrService.isArraySorted(this.arrService.numbers)) {
           this.arrService.animateSortedArray();
+          this.arrService.sorting = false;
+        }
       }
     }, this.arrService.animationSpeed);
   }

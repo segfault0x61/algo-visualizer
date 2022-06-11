@@ -19,13 +19,11 @@ export class MergeSort {
 
   merge(array: ArrayBars[], left: number, mid: number, right: number): void {
     let aux = [...array];
-
     let midIndex = mid + 1;
     let leftIndex = left;
 
     for (let k = leftIndex; k <= right; k++) {
       if (leftIndex > mid) {
-        // start index has surpassed the middle
         this.animations.push({ index: k, value: aux[midIndex].value });
         array[k] = aux[midIndex++];
       } else if (midIndex > right) {
@@ -42,13 +40,17 @@ export class MergeSort {
   }
 
   mergeSortAnimation(): void {
-    let animations = setInterval(() => {
+    this.arrService.sortingAnimationsMax = this.animations.length;
+    let timer = setInterval(() => {
       const action: animationValues = this.animations.shift()!;
+      this.arrService.sortingAnimationsLeft = this.animations.length;
       if (action) this.arrService.numbers[action.index].value = action.value;
       else {
-        clearInterval(animations);
-        if (this.arrService.isArraySorted(this.arrService.numbers))
+        clearInterval(timer);
+        if (this.arrService.isArraySorted(this.arrService.numbers)) {
           this.arrService.animateSortedArray();
+          this.arrService.sorting = false;
+        }
       }
     }, this.arrService.animationSpeed);
   }

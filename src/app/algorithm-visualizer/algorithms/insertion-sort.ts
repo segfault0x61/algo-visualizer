@@ -1,5 +1,5 @@
-import { ArraysService } from '../../shared/arrays.service';
-import { ArrayBars } from '../../models/ArrayBars';
+import { ArraysService } from 'src/app/shared/arrays.service';
+import { ArrayBars } from 'src/app/models/ArrayBars';
 
 export class InsertionSort {
   animations: animationValues[] = [];
@@ -11,7 +11,7 @@ export class InsertionSort {
       let inner = outer;
 
       while (inner > 0 && arr[inner - 1].value > arr[inner].value) {
-        // if previous value is greater, cascasde the value back to its correct index
+        // if previous value is greater, cascasde the value back to its correct index.
         this.animations.push({ rightIndex: inner, leftIndex: inner - 1 });
         this.arrService.swap(arr, inner, inner - 1);
         inner--;
@@ -20,19 +20,21 @@ export class InsertionSort {
   }
 
   insertionSortAnimation() {
+    this.arrService.sortingAnimationsMax = this.animations.length;
     const timer = setInterval(() => {
       const action: animationValues = this.animations.shift()!;
-      if (action) {
+      this.arrService.sortingAnimationsLeft = this.animations.length;
+      if (action)
         this.arrService.swap(
           this.arrService.numbers,
           action.leftIndex,
           action.rightIndex
         );
-      } else {
+      else {
         clearInterval(timer);
-
         if (this.arrService.isArraySorted(this.arrService.numbers)) {
           this.arrService.animateSortedArray();
+          this.arrService.sorting = false;
         }
       }
     }, this.arrService.animationSpeed);

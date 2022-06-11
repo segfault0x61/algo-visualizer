@@ -23,7 +23,7 @@ import { ArrayBars } from '../models/ArrayBars';
 })
 export class AlgorithmVisualizerComponent implements OnInit {
   algorithmEnum = algorithmEnums;
-  selectedAlgorithm: algorithmEnums = algorithmEnums.INSERTION;
+  selectedAlgorithm: algorithmEnums = algorithmEnums.BUBBLE;
 
   constructor(public arrService: ArraysService) {}
 
@@ -40,17 +40,19 @@ export class AlgorithmVisualizerComponent implements OnInit {
   }
 
   pitchSize(event: any): void {
-    console.log(event.value);
     this.arrService.arrayLength = event.value;
+    this.arrService.sortingAnimationsMax = event.value;
+    this.arrService.sortingAnimationsLeft = event.value;
     this.arrService.resetArray();
   }
 
   pitchSpeed(event: any): void {
-    console.log(event.value);
     this.arrService.animationSpeed = event.value;
   }
 
   startSorting(): void {
+    this.arrService.sorting = true;
+
     if (this.selectedAlgorithm === this.algorithmEnum.BUBBLE) {
       this.bubbleSort();
     }
