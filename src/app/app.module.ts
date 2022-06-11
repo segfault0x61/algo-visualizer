@@ -10,8 +10,9 @@ import { AppComponent } from './app.component';
 import { AlgorithmVisualizerComponent } from './algorithm-visualizer/algorithm-visualizer.component';
 
 import { MatSelectModule } from '@angular/material/select';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { MatSliderModule } from '@angular/material/slider';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 
 @NgModule({
   declarations: [AppComponent, AlgorithmVisualizerComponent],
@@ -24,6 +25,7 @@ import { MatSliderModule } from '@angular/material/slider';
     MatSliderModule,
     BrowserAnimationsModule,
     BsDropdownModule.forRoot(),
+    ProgressbarModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],
