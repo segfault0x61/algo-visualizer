@@ -1,41 +1,47 @@
+button {
+  margin: 14px;
+  padding: 4px 8px 4px 8px;
+}
+
+hr {
+  margin: 0px 0px 0px 0px;
+}
+
+table {
+  margin: auto;
+}
+
 .array-container {
   text-align: center;
 }
 
 .array-body {
   display: inline-block;
+  text-align: center;
 }
 
-.array-element {
-  width: 6px;
-  margin: 0px 4px 0px 4px;
+.array-bar {
+  margin: 0px 1px 0px 1px;
   display: inline-block;
+  color: #0f5257;
 }
 
 .rectangle {
   width: 6px;
   height: 10px;
   margin: 10px 4px 0px 8px;
+  padding-bottom: 10px;
   display: inline-block;
-}
-
-button {
-  margin: 14px;
-  padding: 4px 8px 4px 8px;
 }
 
 .mat-form-field.mat-select {
   background: #fff;
 }
 
-hr {
-  margin: 10px 0px 0px 0px;
-}
-
-mat-slider {
+.mat-slider {
   margin-top: 16px;
 }
 
-.animation-bar {
+.animation-slide-bar {
   display: inline-block;
 }

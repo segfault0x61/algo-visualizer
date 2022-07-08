@@ -6,9 +6,10 @@ import { ArrayBars } from '../models/ArrayBars';
 })
 export class ArraysService {
   public arrayLength: number = 10;
-  public animationSpeed: number = 500;
+  public animationSpeed: number = 1000;
+  public barWidth: number = 32;
 
-  sortingAnimationsMax!: number;
+  sortingAnimationsMax!: number; // max animations left
   sortingAnimationsLeft!: number;
   sorting: boolean = false;
   isSorted: boolean = false;
@@ -27,13 +28,17 @@ export class ArraysService {
   resetArray(): void {
     this.numbers = [];
     for (let i = 0; i < this.arrayLength; i++) {
-      const randInt = this.randomInteger(20, 500);
-      this.numbers.push({ value: randInt, color: this.$primaryBars });
+      const randInt = this.randomInteger(20, 200);
+      this.numbers.push({
+        value: randInt,
+        color: this.$primaryBars,
+        width: this.barWidth,
+      });
     }
-    this.sortingAnimationsMax = this.numbers.length;
-    this.sortingAnimationsLeft = this.numbers.length;
-    this.isSorted = false;
-    this.sorting = false;
+
+    this.sortingAnimationsMax = this.sortingAnimationsLeft =
+      this.numbers.length;
+    this.isSorted = this.sorting = false;
   }
 
   randomInteger(min: number, max: number): number {
@@ -67,7 +72,7 @@ export class ArraysService {
       } else {
         clearInterval(timer);
       }
-    }, this.animationSpeed);
+    }, 20);
   }
 }
 

@@ -39,6 +39,7 @@ export class QuickSort {
         rightIndex: null,
         pivot: right,
         selectedIndex: i,
+        isSwapping: false,
       });
       if (arr[i].value < pivotValue) {
         low++;
@@ -47,6 +48,7 @@ export class QuickSort {
           rightIndex: i,
           pivot: right,
           selectedIndex: null,
+          isSwapping: true,
         });
         this.arrService.swap(arr, low, i);
       }
@@ -56,6 +58,7 @@ export class QuickSort {
       rightIndex: right,
       pivot: right,
       selectedIndex: null,
+      isSwapping: true,
     });
     this.arrService.swap(arr, low + 1, right);
 
@@ -74,8 +77,10 @@ export class QuickSort {
         );
         this.arrService.numbers[action.pivot!].color = 'orange';
 
-        if (action.selectedIndex != null) {
-          this.arrService.numbers[action.selectedIndex].color =
+        if (action.isSwapping == false) {
+          this.arrService.numbers[action.leftIndex!].color =
+            this.arrService.$selectedIndex;
+          this.arrService.numbers[action.rightIndex!].color =
             this.arrService.$selectedIndex;
         } else {
           this.arrService.numbers[action.leftIndex!].color =
@@ -104,4 +109,5 @@ interface animationValues {
   rightIndex: number | null;
   pivot: number | null;
   selectedIndex: number | null;
+  isSwapping: boolean;
 }
