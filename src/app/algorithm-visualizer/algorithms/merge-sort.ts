@@ -23,33 +23,39 @@ export class MergeSort {
     let leftIndex = left;
 
     for (let k = leftIndex; k <= right; k++) {
+      this.animations.push({ index: k, outerIndex: null, value: null });
+
       if (leftIndex > mid) {
-        this.animations.push({
-          index: k,
-          outerIndex: midIndex,
-          value: aux[midIndex],
-        });
+        if (k !== midIndex)
+          this.animations.push({
+            index: k,
+            outerIndex: midIndex,
+            value: aux[midIndex],
+          });
         array[k] = aux[midIndex++];
       } else if (midIndex > right) {
-        this.animations.push({
-          index: k,
-          outerIndex: midIndex,
-          value: aux[midIndex],
-        });
+        if (k !== leftIndex)
+          this.animations.push({
+            index: k,
+            outerIndex: leftIndex,
+            value: aux[leftIndex],
+          });
         array[k] = aux[leftIndex++];
       } else if (aux[leftIndex].value > aux[midIndex].value) {
-        this.animations.push({
-          index: k,
-          outerIndex: midIndex,
-          value: aux[midIndex],
-        });
+        if (k !== midIndex)
+          this.animations.push({
+            index: k,
+            outerIndex: midIndex,
+            value: aux[midIndex],
+          });
         array[k] = aux[midIndex++];
       } else {
-        this.animations.push({
-          index: k,
-          outerIndex: midIndex,
-          value: aux[midIndex],
-        });
+        if (k !== leftIndex)
+          this.animations.push({
+            index: k,
+            outerIndex: leftIndex,
+            value: aux[leftIndex],
+          });
         array[k] = aux[leftIndex++];
       }
     }
@@ -64,11 +70,17 @@ export class MergeSort {
         this.arrService.numbers.map(
           (num) => (num.color = this.arrService.$primaryBars)
         );
-        this.arrService.numbers[action.index].color =
-          this.arrService.$selectedIndex;
-        this.arrService.numbers[action.outerIndex].color =
-          this.arrService.$swappedIndex;
-        this.arrService.numbers[action.index] = action.value;
+        console.log(action);
+        if (action.outerIndex == null) {
+          this.arrService.numbers[action.index].color =
+            this.arrService.$selectedIndex;
+        } else {
+          this.arrService.numbers[action.index].color =
+            this.arrService.$swappedIndex;
+          this.arrService.numbers[action.outerIndex].color =
+            this.arrService.$swappedIndex;
+          this.arrService.numbers[action.index] = action.value!;
+        }
       } else {
         clearInterval(timer);
         if (this.arrService.isArraySorted(this.arrService.numbers)) {
@@ -82,6 +94,6 @@ export class MergeSort {
 
 interface animationValues {
   index: number;
-  outerIndex: number;
-  value: ArrayBars;
+  outerIndex: number | null;
+  value: ArrayBars | null;
 }

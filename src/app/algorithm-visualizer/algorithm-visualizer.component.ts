@@ -23,7 +23,7 @@ import { ArrayBars } from '../models/ArrayBars';
 })
 export class AlgorithmVisualizerComponent implements OnInit {
   algorithmEnum = algorithmEnums;
-  selectedAlgorithm: algorithmEnums = algorithmEnums.QUICK;
+  selectedAlgorithm: algorithmEnums = algorithmEnums.MERGE;
 
   constructor(public arrService: ArraysService) {}
 
@@ -40,6 +40,24 @@ export class AlgorithmVisualizerComponent implements OnInit {
     this.arrService.sortingAnimationsMax = event.value;
     this.arrService.sortingAnimationsLeft = event.value;
     this.arrService.resetArray();
+  }
+
+  setBarWidth() {
+    const arrSize = this.arrService.arrayLength;
+    if (arrSize < 20) return (this.arrService.barWidth = 32);
+    if (arrSize >= 20 && arrSize < 30) return (this.arrService.barWidth = 22);
+    if (arrSize >= 30 && arrSize < 40) return (this.arrService.barWidth = 18);
+    if (arrSize >= 40 && arrSize < 50) return (this.arrService.barWidth = 16);
+    if (arrSize >= 50 && arrSize < 60) return (this.arrService.barWidth = 12);
+    if (arrSize >= 60 && arrSize < 70) return (this.arrService.barWidth = 10);
+    if (arrSize >= 70 && arrSize < 80) return (this.arrService.barWidth = 8);
+    if (arrSize >= 80 && arrSize < 90) return (this.arrService.barWidth = 6);
+    if (arrSize >= 90 && arrSize < 120) return (this.arrService.barWidth = 5);
+    if (arrSize >= 120 && arrSize < 150) return (this.arrService.barWidth = 4);
+    if (arrSize >= 150 && arrSize < 180) return (this.arrService.barWidth = 3);
+    if (arrSize >= 180) return (this.arrService.barWidth = 2);
+
+    return arrSize;
   }
 
   pitchSpeed(event: any): void {

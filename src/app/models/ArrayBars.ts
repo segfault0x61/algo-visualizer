@@ -1,4 +1,5 @@
 export interface ArrayBars {
-  value: number;
+  value: number; // height
+  width: number;
   color: string;
 }
