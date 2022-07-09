@@ -70,7 +70,6 @@ export class MergeSort {
         this.arrService.numbers.map(
           (num) => (num.color = this.arrService.$primaryBars)
         );
-        console.log(action);
         if (action.outerIndex == null) {
           this.arrService.numbers[action.index].color =
             this.arrService.$selectedIndex;
