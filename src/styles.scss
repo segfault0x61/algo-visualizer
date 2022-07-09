@@ -6,12 +6,76 @@ body {
 }
 
 body {
+  font-family: Roboto, Arial, sans-serif;
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.basic-container {
+  padding: 30px;
+}
+
+.version-info {
+  font-size: 8pt;
+  float: right;
+  margin: 8px;
+}
+
+button {
+  margin: 14px;
+  padding: 4px 8px 4px 8px;
+}
+
+hr {
+  margin: 0px 0px 0px 0px;
+}
+
+table {
+  margin: auto;
+}
+
+.array-container {
+  text-align: center;
+}
+
+.array-body {
+  text-align: center;
+}
+
+.array-bar {
+  margin: 0px 1px 0px 1px;
+  display: inline-block;
+}
+
+.rectangle {
+  width: 6px;
+  height: 10px;
+  margin: 10px 4px 0px 8px;
+  padding-bottom: 10px;
+  display: inline-block;
+}
+
+.mat-form-field.mat-select {
+  background: #fff;
+}
+
+.mat-slider {
+  margin-top: 16px;
+}
+
+.animation-slide-bar {
+  display: inline-block;
+}
+
+mat-toolbar {
+  display: inline-block;
+}
+
+#speedSlider .mat-slider-thumb-label {
+  padding: 18px;
 }
 
 /* Importing Bootstrap SCSS file. */
-@import '~bootstrap/scss/bootstrap';
+@import "~bootstrap/scss/bootstrap";
 
 /* Importing Bootstrap SCSS file. */
 @import "~bootstrap/scss/bootstrap";

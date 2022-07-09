@@ -37,8 +37,6 @@ export class AlgorithmVisualizerComponent implements OnInit {
 
   pitchSize(event: any): void {
     this.arrService.arrayLength = event.value;
-    this.arrService.sortingAnimationsMax = event.value;
-    this.arrService.sortingAnimationsLeft = event.value;
     this.arrService.resetArray();
   }
 
@@ -55,7 +53,7 @@ export class AlgorithmVisualizerComponent implements OnInit {
     if (arrSize >= 90 && arrSize < 120) return (this.arrService.barWidth = 5);
     if (arrSize >= 120 && arrSize < 150) return (this.arrService.barWidth = 4);
     if (arrSize >= 150 && arrSize < 180) return (this.arrService.barWidth = 3);
-    if (arrSize >= 180) return (this.arrService.barWidth = 2);
+    if (arrSize >= 190) return (this.arrService.barWidth = 2);
 
     return arrSize;
   }

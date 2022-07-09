@@ -27,23 +27,13 @@
       aria-labelledby="button-animated"
     >
       <li role="menuitem">
-        <a class="dropdown-item" (click)="displayInfo(algorithmEnum.BUBBLE)"
-          >Bubble Sort</a
+        <a class="dropdown-item" (click)="displayInfo(algorithmEnum.BINARY)"
+          >Binary Search</a
         >
       </li>
       <li role="menuitem">
-        <a class="dropdown-item" (click)="displayInfo(algorithmEnum.INSERTION)"
-          >Insertion Sort</a
-        >
-      </li>
-      <li role="menuitem">
-        <a class="dropdown-item" (click)="displayInfo(algorithmEnum.MERGE)"
-          >Merge Sort</a
-        >
-      </li>
-      <li role="menuitem">
-        <a class="dropdown-item" (click)="displayInfo(algorithmEnum.QUICK)"
-          >Quick Sort</a
+        <a class="dropdown-item" (click)="displayInfo(algorithmEnum.LINEAR)"
+          >Linear Search</a
         >
       </li>
     </ul>
@@ -88,7 +78,7 @@
   <div class="row">
     <div class="array-container col-12">
       <div class="animation-slide-bar col-sm-6">
-        <table id="colorMeaning" class="array-container">
+        <table class="array-container">
           <tr>
             <td>
               <div
@@ -97,49 +87,18 @@
               ></div>
             </td>
             <td>{{ algorithmEnum.RED_BAR }}</td>
-            <td *ngIf="selectedAlgorithm == algorithmEnum.QUICK">
-              <div
-                class="rectangle"
-                [ngStyle]="{ 'background-color': 'orange' }"
-              ></div>
-            </td>
-            <td *ngIf="selectedAlgorithm == algorithmEnum.QUICK">
-              {{ algorithmEnum.ORANGE_BAR }}
-            </td>
-            <td>
-              <div
-                class="rectangle"
-                [ngStyle]="{ 'background-color': 'green' }"
-              ></div>
-            </td>
-            <td>{{ algorithmEnum.GREEN_BAR }}</td>
           </tr>
           <tr></tr>
         </table>
 
-        <div class="mb-2">
-          <progressbar
-            type="info"
-            [striped]="true"
-            [animate]="true"
-            *ngIf="arrService.sorting == false"
-            [value]="arrService.arrayLength"
-            ><i>{{ arrService.arrayLength }} / 200 </i></progressbar
-          >
-          <progressbar
-            type="danger"
-            [striped]="true"
-            [animate]="true"
-            *ngIf="arrService.sorting"
-            [max]="arrService.sortingAnimationsMax"
-            [value]="arrService.sortingAnimationsLeft"
-          >
-            <i
-              >{{ arrService.sortingAnimationsLeft }} /
-              {{ arrService.sortingAnimationsMax }}
-            </i></progressbar
-          >
-        </div>
+        <!-- <div class="mb-2">
+            <progressbar type="primary" [striped]="true" [animate]="true" *ngIf="arrService.sorting == false"
+              [value]="arrService.arrayLength"><i>{{arrService.arrayLength}} / 200 </i></progressbar>
+            <progressbar type="danger" [striped]="true" [animate]="true" *ngIf="arrService.sorting"
+              max="{{arrService.sortingAnimationsMax}}" [value]="arrService.sortingAnimationsLeft">
+              <i>{{arrService.sortingAnimationsLeft}} / {{arrService.sortingAnimationsMax}} </i>
+            </progressbar>
+          </div> -->
       </div>
 
       <hr />
