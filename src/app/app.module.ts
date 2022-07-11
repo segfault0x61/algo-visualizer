@@ -20,6 +20,7 @@ import { BinaryTreeComponent } from './binary-tree/binary-tree.component';
 const routes: Routes = [
   { path: 'algorithm', component: AlgorithmVisualizerComponent },
   { path: 'searching', component: SearchingAlgorithmsComponent },
+  { path: 'binary', component: BinaryTreeComponent },
 
   { path: '', redirectTo: '/algorithm', pathMatch: 'full' },
 ];
