@@ -15,6 +15,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { AlgorithmVisualizerComponent } from './algorithm-visualizer/algorithm-visualizer.component';
 import { SearchingAlgorithmsComponent } from './searching-algorithms/searching-algorithms.component';
+import { BinaryTreeComponent } from './binary-tree/binary-tree.component';
 
 const routes: Routes = [
   { path: 'algorithm', component: AlgorithmVisualizerComponent },
@@ -28,6 +29,7 @@ const routes: Routes = [
     AppComponent,
     AlgorithmVisualizerComponent,
     SearchingAlgorithmsComponent,
+    BinaryTreeComponent,
   ],
   imports: [
     BrowserModule,

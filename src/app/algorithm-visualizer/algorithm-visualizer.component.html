@@ -75,7 +75,7 @@
     id="speedSlider"
     thumbLabel
     tickInterval="auto"
-    [displayWith]="formatLabel"
+    [displayWith]="arrService.formatLabel"
     min="0"
     max="1000"
     (input)="pitchSpeed($event)"
