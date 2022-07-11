@@ -2,7 +2,7 @@ import { ArrayBars } from '../../models/ArrayBars';
 import { ArraysService } from '../../shared/arrays.service';
 
 export class LinearSearch {
-  animations: animationValues[] = [];
+  animations: AnimationValues[] = [];
 
   constructor(private readonly arrService: ArraysService) {}
 
@@ -37,6 +37,6 @@ export class LinearSearch {
   }
 }
 
-export class animationValues {
+interface AnimationValues {
   selectedIndex: number | undefined;
 }
